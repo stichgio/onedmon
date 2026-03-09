@@ -40,6 +40,11 @@ RUN mkdir -p /out && \
 # ── Stage 2: Build ──────────────────────────────────────────────
 FROM ${OPENCLAW_NODE_BOOKWORM_IMAGE} AS build
 
+# Re-declare global ARG so it's accessible in this stage.
+# Without this, $OPENCLAW_DOCKER_BUILD_NODE_OPTIONS is empty in the shell
+# and tsdown runs without a heap limit, causing an OOM SIGKILL on low-memory builders.
+ARG OPENCLAW_DOCKER_BUILD_NODE_OPTIONS
+
 # Install Bun (required for build scripts)
 RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:${PATH}"
