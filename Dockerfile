@@ -36,3 +36,7 @@ USER node
 
 # Define the command to start your application
 CMD [ "node", "index.js" ]
+# Re-declare global ARG so it's accessible in this stage.
+# Without this, $OPENCLAW_DOCKER_BUILD_NODE_OPTIONS is empty in the shell
+# and tsdown runs without a heap limit, causing an OOM SIGKILL on low-memory builders.
+ARG OPENCLAW_DOCKER_BUILD_NODE_OPTIONS
