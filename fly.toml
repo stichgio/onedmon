@@ -9,6 +9,9 @@ primary_region = "ams"
 [build]
   dockerfile = "Dockerfile"
 
+  [build.args]
+  OPENCLAW_DOCKER_BUILD_NODE_OPTIONS = "--max-old-space-size=1536"
+
 [env]
   NODE_ENV = "production"
   OPENCLAW_PREFER_PNPM = "1"
@@ -27,8 +30,8 @@ primary_region = "ams"
   processes = ["app"]
 
 [[vm]]
-  size = "shared-cpu-1x"
-  memory = "1gb"
+  size = "shared-cpu-2x"
+  memory = "2gb"
 
 [mounts]
   source = "openclaw_data"
